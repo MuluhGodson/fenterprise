@@ -1,0 +1,59 @@
+<x-app-layout>
+
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Warehouses/Create') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="mx-auto sm:px-6 lg:px-8">
+            <div class="sm:rounded-lg max-w-5xl shadow-lg p-5 mx-auto">
+                <div class="p-10">
+
+                    <form action="{{ route('warehouse.store') }}" method="POST" enctype="multipart/form-data">
+                        <div class="my-4">
+                            <h1 class="font-bold text-center text-capitalize">Enter Details for Warehouse</h1>
+                        </div>
+
+                        <x-jet-validation-errors class="mb-4" />
+
+                        <div class="my-4">
+                            <x-jet-label for="name" value="Warehouse Name" />
+                            <x-jet-input name="name" class="rounded w-full" type="text" />
+                        </div>
+
+                        <div class="my-4">
+                            <x-jet-label for="manager" value="Select Manager" />
+                            <select name="manager" class="w-full rounded" name="" id="">
+                                <option class="w-full" value="1">Teghen</option>
+                                <option class="w-full" value="2">Joe Z</option>
+                            </select>
+                        </div>
+
+                        <div class="my-4">
+                            <x-jet-label for="divsion" value="Select Location" />
+                            <select name="division" class="w-full rounded" name="" id="">
+                                <option class="w-full" value="1"> Bamenda 1</option>
+                                <option class="w-full" value="2">Bamenda 4</option>
+                            </select>
+                        </div>
+
+                        <div class="my-4">
+                            <x-jet-label for="image" value="Warehouse Image" />
+                            <x-jet-input name="image" class="rounded w-3/4" type="file" />
+                        </div>
+
+                        <div class="my-4">
+                            <input type="submit" class="p-2 cursor-pointer hover:bg-gray-700 bg-black text-white rounded" value="Add Warehouse">
+                        </div>
+
+                        @csrf
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+</x-app-layout>
