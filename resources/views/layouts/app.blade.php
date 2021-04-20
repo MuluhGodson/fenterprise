@@ -4,11 +4,11 @@
     <body class="font-sans antialiased">
         <x-jet-banner />
 
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-yellow-400">
             @livewire('navigation-menu')
 
             <!-- Page Heading -->
-            <header class="bg-white shadow">
+            <header class="bg-yellow-400 shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     {{ $header }}
                 </div>
@@ -20,7 +20,7 @@
                         <!-- Side bar -->
                         @include('layouts.parts.sidebar')
                     </div>
-                    <div class="w-full mt-4 h-screen pt-12 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5 col-span-5">
+                    <div class="w-full mt-1 pt-1 bg-yellow-100 md:mt-1 md:pb-1 col-span-5">
                         <!-- Page Content -->
                         <main>
                             {{ $slot }}

@@ -6,14 +6,14 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div>
         <div class="mx-auto sm:px-6 lg:px-8">
-            <div class="sm:rounded-lg max-w-5xl shadow-lg p-5 mx-auto">
-                <div class="p-10">
+            <div class="sm:rounded-lg max-w-5xl p-5 mx-auto">
+                <div class="px-10">
 
                     <form action="{{ route('warehouse.store') }}" method="POST" enctype="multipart/form-data">
                         <div class="my-4">
-                            <h1 class="font-bold text-center text-capitalize">Enter Details for Warehouse</h1>
+                            <h1 class="font-bold text-center text-uppercase">Enter Details for Warehouse</h1>
                         </div>
 
                         <x-jet-validation-errors class="mb-4" />
@@ -45,7 +45,7 @@
                         </div>
 
                         <div class="my-4">
-                            <input type="submit" class="p-2 cursor-pointer hover:bg-gray-700 bg-black text-white rounded" value="Add Warehouse">
+                            <input type="submit" class="p-2 cursor-pointer hover:bg-yellow-700 bg-red-900 text-white rounded" value="Add Warehouse">
                         </div>
 
                         @csrf
