@@ -1,4 +1,4 @@
-<div class="text-gray-800 bg-red-900 text-gray-200 h-screen divide-y-2">
+<div class="bg-red-900 text-gray-200 h-screen divide-y-2">
     <a href="">
         <div class="py-5 hover:bg-yellow-400 px-3 rounded cursor-pointer">
             <p class="px-5 text-gray-200">Products</p>
@@ -14,7 +14,7 @@
 
     <a href="{{ route('warehouse.index') }}">
         <div class="py-5 hover:bg-yellow-400 px-3 rounded cursor-pointer">
-            <p class="px-5 text-gray-200">Warehouses</p>
+            <p class="px-5 text-gray-200">Branches</p>
         </div>
     </a>
    
@@ -24,9 +24,9 @@
         </div>
     </a>
     
-    <a href="">
+    <a href="{{ route('staff.index')}}">
         <div class="py-5 hover:bg-yellow-400 px-3 rounded cursor-pointer">
-            <p class="px-5 text-gray-200">HRM</p>
+            <p class="px-5 text-gray-200">Employees</p>
         </div>
     </a>
     

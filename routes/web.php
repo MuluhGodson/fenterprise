@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\Admin\WarehousesController;
+use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\PagesController;
+use Spatie\WelcomeNotification\WelcomesNewUsers;
+use App\Http\Controllers\Admin\MyWelcomeController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +18,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::group(['middleware' => ['web', WelcomesNewUsers::class,]], function() {
+    Route::get('welcome/{user}', [MyWelcomeController::class, 'showWelcomeForm'])->name('welcome');
+    Route::post('welcome/{user}', [MyWelcomeController::class, 'savePassword']);
+});
+
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('/', [PagesController::class, 'dashboard'])->name('dashboard');
 
@@ -22,4 +30,5 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 
     //SuperAdmin
     Route::resource('warehouse', WarehousesController::class);
+    Route::get('staff', [StaffController::class, 'index'])->name('staff.index');
 });

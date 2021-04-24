@@ -14,8 +14,9 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
-        dd('category');
+        $categories = Category::all();
+        return view('admin.categories.index', compact('categories'));
+        
     }
 
     /**
@@ -25,7 +26,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create');
     }
 
     /**
@@ -36,7 +37,23 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'image' => 'required|image',
+            'description' => 'sometimes'
+        ]);
+        $imageExtension = $request->file('image')->getClientOriginalExtension();
+        $imageName = 'category_image_'.$request->input('name').'_'.time().'.'.$imageExtension;
+        $imageLocation = $request->file('image')->storeAs('public/Category/Images', $imageName);
+        
+
+        $category = New Category();
+        $category->name = $request->input('name');
+        $category->description =  $request->input('description');
+        $category->image = $imageLocation;
+        $category->save();
+        
+        return redirect()->route('category.index');
     }
 
     /**
@@ -58,7 +75,8 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::find($id);
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -70,7 +88,27 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'image' => 'sometimes|image',
+            'description' => 'sometimes'
+        ]);
+
+        $category = Category::find($id);
+
+        if($request->hasFile('image')){
+            $imageExtension = $request->file('image')->getClientOriginalExtension();
+            $imageName = 'category_image_'.$request->input('name').'_'.time().'.'.$imageExtension;
+            $imageLocation = $request->file('image')->storeAs('public/Category/Images', $imageName);
+        } else {
+            $imageLocation = $category->image;
+        }
+
+        $category->name = $request->input('name');
+        $category->image = $imageLocation;
+        $category->description = $request->input('description');
+        $category->save();
+        return redirect()->route('category.index');
     }
 
     /**
@@ -81,6 +119,7 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id)->delete();
+        return redirect()->route('category.index');
     }
 }

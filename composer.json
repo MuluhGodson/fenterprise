@@ -16,7 +16,9 @@
         "laravel/jetstream": "^2.1",
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.5",
-        "livewire/livewire": "^2.0"
+        "livewire/livewire": "^2.0",
+        "spatie/laravel-sluggable": "^2.6",
+        "spatie/laravel-welcome-notification": "^2.2"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
