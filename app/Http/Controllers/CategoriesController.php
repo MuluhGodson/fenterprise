@@ -98,7 +98,7 @@ class CategoriesController extends Controller
 
         if($request->hasFile('image')){
             $imageExtension = $request->file('image')->getClientOriginalExtension();
-            $imageName = 'categoryImage_'.$request->input('name').'_'.time().'.'.$imageExtension;
+            $imageName = 'category_image_'.$request->input('name').'_'.time().'.'.$imageExtension;
             $imageLocation = $request->file('image')->storeAs('public/Category/Images', $imageName);
         } else {
             $imageLocation = $category->image;
