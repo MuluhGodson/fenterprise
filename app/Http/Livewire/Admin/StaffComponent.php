@@ -11,7 +11,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Carbon\Carbon;
 use Laravel\Jetstream\Contracts\DeletesUsers;
-use Laravel\Jetstream\ConfirmsPasswords;
+//use Laravel\Jetstream\ConfirmsPasswords;
 
 class StaffComponent extends Component implements DeletesUsers
 {
