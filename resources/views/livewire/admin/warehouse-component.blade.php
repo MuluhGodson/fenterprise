@@ -11,7 +11,7 @@
                 <div class="my-5 grid grid-cols-4 place-content-center gap-5">
                     @forelse ($warehouses as $warehouse)
                         <div class="col shadow-lg rounded bg-yellow-400">
-                            <img src="{{Storage::url($warehouse->image)}}" class="w-full" alt="{{$category->name}}">
+                            <img src="{{Storage::url($warehouse->image)}}" class="w-full" alt="{{$warehouse->name}}">
                             <div class="p-3">
                                 <h1 class="text-center text-red-900 font-semibold">
                                     {{ $warehouse->name }}
@@ -19,8 +19,8 @@
                             </div>
                             <div>
                                 <div class="flex justify-between justify-items-center px-2 py-3">
-                                    <div>Edit</div>
-                                    <div>Delete</div>
+                                    <div><button class="bg-transparent rounded border border-red-900 text-red-900 p-1" wire:click="edit('{{$warehouse->id}}')">Edit</button></div>
+                                    <div><button class="bg-red-900 rounded p-1 text-gray-200" wire:click="delete('{{$warehouse->id}}')">Delete</button></div>
                                 </div>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
 
 
     <!-- Create Modal -->
-        <x-jet-dialog-modal wire:model="createOpen">
+        <x-jet-dialog-modal wire:model="Open">
 
             <x-slot name="title">
                 Create Branch
@@ -50,19 +50,38 @@
                 </div>
 
                 <div class="my-4">
-                    <x-jet-label for="manager" value="Select Branch Manager" />
-                    <select name="manager" wire:model="manager" class="w-full rounded" name="" id="">
-                        <option class="w-full" value="1">Teghen</option>
-                        <option class="w-full" value="2">Joe Z</option>
-                    </select>
+                    <x-jet-label for="code" value="Branch Code" />
+                    <x-jet-input name="name" wire:model="code" disabled class="rounded w-full bg-gray-200" type="text" />
+                </div>
+
+
+                @if($users)
+                <div class="my-4">
+                        <x-jet-label for="manager" value="Select Branch Manager" />
+                        <small>You can skip for later</small>
+                        <select name="manager" wire:model="manager" class="w-full rounded" name="" id="">
+                            <option class="w-full" value="">Select the branch Manager</option>
+                            @forelse ($users as $user)
+                                <option class="w-full" value="{{$user->id}}">{{$user->name}}</option>
+                            @empty
+                                <p>No Managers found.</p>
+                            @endforelse  
+                        </select>
+                    </div>
+                @endif
+
+                <div class="my-4">
+                    <livewire:admin.utils.location-component :lt="null" />
                 </div>
 
                 <div class="my-4">
-                    <x-jet-label for="divsion" value="Select Branch Location" />
-                    <select name="division" wire:model="division" class="w-full rounded" name="" id="">
-                        <option class="w-full" value="1"> Bamenda 1</option>
-                        <option class="w-full" value="2">Bamenda 4</option>
-                    </select>
+                    <x-jet-label for="latitude" value="Branch Latitude" />
+                    <x-jet-input name="latitide" wire:model="latitude" class="rounded w-full" type="text" />
+                </div>
+
+                <div class="my-4">
+                    <x-jet-label for="longitude" value="Branch Longitude" />
+                    <x-jet-input name="longitude" wire:model="longitude" class="rounded w-full" type="text" />
                 </div>
 
                 <div class="my-4">
@@ -81,8 +100,8 @@
                     </div>
                     @if($this->image)
                         <div class="my-1">
-                            Photo Preview:
-                            <img src="{{$this->image->temporaryUrl()}}" alt="">
+                            Photo Preview:                       
+                            <img src="{{!$editMode ? $this->image->temporaryUrl(): Storage::url($warehouse->image)}}" alt="">
                         </div>
                     @endif
                 </div>

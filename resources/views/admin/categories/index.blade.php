@@ -25,9 +25,9 @@
                                 </h1>
                             </div>
                             <div>
-                                <div class="flex justify-between justify-items-center px-2 py-3">
-                                    <div><a href="{{ route('category.edit', $category->id)}}" class="bg-red-900 text-yellow-300 p-1 rounded font-semibold"> <small>Edit</small></a></div>
-                                    <div>
+                                <div class="flex justify-between content-end px-2 py-3">
+                                    <div class="self-end"><a href="{{ route('category.edit', $category)}}" class="bg-red-900 text-yellow-300 p-1 rounded font-semibold"> <small>Edit</small></a></div>
+                                    <div class="self-end">
                                         <form method="POST" action="{{route('category.destroy', $category->id)}}">
                                             @csrf
                                             @method('DELETE')

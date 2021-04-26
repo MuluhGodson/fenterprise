@@ -18,7 +18,7 @@
         </div>
     </a>
    
-    <a href="">
+    <a href="{{ route('location.index') }}">
         <div class="py-5 hover:bg-yellow-400 px-3 rounded cursor-pointer">
             <p class="px-5 text-gray-200">Locations</p>
         </div>

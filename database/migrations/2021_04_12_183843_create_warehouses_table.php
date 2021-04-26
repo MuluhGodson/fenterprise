@@ -17,12 +17,16 @@ class CreateWarehousesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
+            $table->string('branch_code');
             $table->string('image')->nullable();
-            $table->unsignedBigInteger('manager_id');
-            $table->unsignedBigInteger('division_id');
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
+            $table->string('phone')->nullable();
+            $table->unsignedBigInteger('manager_id')->nullable();
+            $table->unsignedBigInteger('subdivision_id');
             $table->unsignedBigInteger('user_id');
 
-            $table->foreign('division_id')->references('id')->on('divisions');
+            $table->foreign('subdivision_id')->references('id')->on('sub_divisions');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('manager_id')->references('id')->on('users');
             $table->timestamps();

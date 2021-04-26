@@ -11,10 +11,12 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Carbon\Carbon;
 use Laravel\Jetstream\Contracts\DeletesUsers;
-//use Laravel\Jetstream\ConfirmsPasswords;
+use Laravel\Jetstream\ConfirmsPasswords;
 
 class StaffComponent extends Component implements DeletesUsers
 {
+    use ConfirmsPasswords;
+
     public $users, $roles, $name, $email, $role, $created_by, $tel, $user_id;
     public $createUser = false;
     public $deleteUser = false;
@@ -26,12 +28,13 @@ class StaffComponent extends Component implements DeletesUsers
 
     public function create()
     {
-        //$this->roles = Role::all();
+        $this->roles = Role::all();
         $this->createUser = true;
     }
 
     public function register()
     {
+        $this->ensurePasswordIsConfirmed();
         $this->created_by = Auth()->User()->id;
         $data = $this->validate([
             'name' => 'required|string|max:255',
@@ -53,10 +56,13 @@ class StaffComponent extends Component implements DeletesUsers
         //Send invitation to USer
         $expiresAt = Carbon::now()->addHours(5);
         $user->sendWelcomeNotification($expiresAt);
+
+        $this->createUser = false;
     }
 
     public function delete($id)
     {
+        $this->ensurePasswordIsConfirmed();
         $user = User::find($id);
         $user->deleteProfilePhoto();
         $user->tokens->each->delete();

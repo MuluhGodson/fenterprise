@@ -26,7 +26,7 @@
                             </td>
                             <td>{{$user->name}}</td>
                             <td>
-                                {{$user->email}}
+                                {{$user->email}} <br>
                                 @if($user->email_verified_at == null)
                                     <span class="font-bold text-red-400 text-sm">[not verified]</span>
                                 @else
@@ -34,7 +34,7 @@
                                 @endif
                             </td>
                             <td>{{$user->tel}}</td>
-                            {{--
+                            
                                 <td>{{$user->getRoleNames()}}</td>
                                 <td class="font-bold text-sm">
                                     @if($user->password == null)
@@ -46,11 +46,22 @@
                                 <td>
                                     @php
                                         $userr = DB::table('users')->find($user->created_by);
-                                        echo "<span>$userr->name</span>"
+                                        if($userr){
+                                            echo "<span>$userr->name</span>";
+                                        } else {
+                                            echo "<span>Seeder</span>";
+                                        }
                                     @endphp
                                 </td>
-                                <td><button class="rounded bg-red-400 my-3 py-2 px-3">Delete</button></td>
-                            --}}
+                                <td>
+                                    <x-jet-confirms-password wire:then="delete('{{$user->id}}')">
+                                        <x-slot name="content">
+                                            <p>This is a high priority function. Please confirm your password to continue.</p>
+                                        </x-slot>
+                                        <button class="rounded bg-red-900 text-gray-200 my-3 py-2 px-3" wire:loading.attr="disabled">Delete</button>
+                                    </x-jet-confirms-password>    
+                                </td>
+                
                         </tr>
                     @endforeach
                 </tbody>
@@ -59,17 +70,22 @@
     </div>
 
     {{-- Create User --}}
+    @if($createUser)
         <x-jet-dialog-modal wire:model="createUser">
             <x-slot name="title">
                 Invite Employee
             </x-slot>
 
             <x-slot name="content">
-                @include('auth.register')
+                @include('auth.register', compact('roles'))
             </x-slot>
             
             <x-slot name="footer">
             </x-slot>
         </x-jet-dialog-modal>
+    @endif
+        {{--@if($createUser)
+            @include('auth.register')
+        @endif--}}
 
 </div>
