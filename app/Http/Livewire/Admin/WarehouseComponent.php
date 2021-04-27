@@ -16,7 +16,7 @@ use App\Models\SubDivision;
 class WarehouseComponent extends Component
 {
     use WithFileUploads;
-    public $warehouses, $warehouse, $categories, $latitude, $longitude, $name, $country, $region, $division, $subdivision, $code, $manager, $image, $users;
+    public $warehouses, $warehouse, $categories, $phone, $latitude, $longitude, $name, $country, $region, $division, $subdivision, $code, $manager, $image, $users;
     public $Open = false;
     public $editMode = false;
     protected $listeners = ['countrySelected', 'regionSelected', 'divisionSelected', 'subdivisionSelected'];
@@ -71,6 +71,7 @@ class WarehouseComponent extends Component
             'code' => 'required',
             'latitude' => 'required',
             'longitude' => 'required',
+            'phone' => 'required',
         ]);
 
         $imageExtension = $data['image']->getClientOriginalExtension();
@@ -86,8 +87,9 @@ class WarehouseComponent extends Component
         $warehouse->user_id = Auth()->User()->id;
         $warehouse->latitude = $data['latitude'];
         $warehouse->longitude = $data['longitude'];
+        $warehouse->phone = $data['phone'];
         $warehouse->save();
-        $this->editMode = true;
+        $this->editMode = false;
         $this->Open = false;
         
     }
@@ -100,10 +102,45 @@ class WarehouseComponent extends Component
         $this->name = $this->warehouse->name;
         $this->code = $this->warehouse->branch_code;
         $this->image = $this->warehouse->image;
+        $this->subdivision = $this->warehouse->subdivision_id;
         //$this->manager = $this->warehouse->manager->name;
         $this->latitude = $this->warehouse->latitude;
-        $this->longitude =$this->warehouse->longitude;
+        $this->longitude = $this->warehouse->longitude;
+        $this->phone = $this->warehouse->phone;
+        $this->editMode = true;
         $this->Open = true;
+    }
+
+    public function update($id)
+    {
+        $data = $this->validate([
+            'name' => 'required',
+            'image' => 'required',
+            'manager' => 'sometimes',
+            'subdivision' => 'required',
+            'code' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
+            'phone' => 'required',
+        ]);
+        
+        $imageExtension = $data['image']->getClientOriginalExtension();
+        $imageName = 'warehouse_image_'.$data['name'].'_'.time().'.'.$imageExtension;
+        $imageLocation = $data['image']->storePubliclyAs('Warehouses/Images', $imageName, ['disk' => 'public']);
+        
+        $warehouse = Warehouse::find($id);
+        $warehouse->name = $data['name'];
+        $warehouse->branch_code = $this->code;
+        $warehouse->image = $imageLocation;
+        $warehouse->manager_id = $data['manager'];
+        $warehouse->subdivision_id = $this->subdivision->id;
+        $warehouse->user_id = Auth()->User()->id;
+        $warehouse->latitude = $data['latitude'];
+        $warehouse->longitude = $data['longitude'];
+        $warehouse->phone = $data['phone'];
+        $warehouse->save();
+        $this->editMode = false;
+        $this->Open = false;
     }
 
     public function delete($id)

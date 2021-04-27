@@ -25,6 +25,27 @@
             </div>
 
             <div class="mt-4">
+                <x-jet-label for="dob" value="{{ __('Date of Birth') }}" />
+                <x-jet-input wire:model="dob" id="dob" class="block mt-1 w-full" type="date" name="dob" :value="old('dob')" required />
+            </div>
+
+            <div class="mt-4">
+                <x-jet-label for="division_of_origin" value="{{ __('Place of Birth') }}" />
+                @livewire('admin.utils.location-component', ['lt' => !($editUser) ? null : $subdivision])
+            </div>
+
+            <div class="mt-4">
+                <x-jet-label for="cni" value="{{ __('ID Card Number') }}" />
+                <x-jet-input wire:model="cni" id="address" class="block mt-1 w-full" type="text" name="cni" :value="old('cni')" required />
+            </div>
+
+            <div class="mt-4">
+                <x-jet-label for="address" value="{{ __('Address') }}" />
+                <x-jet-input wire:model="address" id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required />
+            </div>
+
+
+            <div class="mt-4">
                 <x-jet-label for="role" value={{_('Role')}} />
                 <select wire:model="role" name="role" id="role" class="block mt-1 w-full py-2 rounded">
                     <option value="">Select a Role</option>
@@ -66,12 +87,12 @@
                     {{ __('Already registered?') }}
                 </a>--}}
 
-                <x-jet-confirms-password wire:then="register()">
+                <x-jet-confirms-password wire:then="{{ !($editUser) ? 'register()' : 'update('.$uid.')' }}">
                     <x-slot name="content">
                         <p>This is a high priority function. Please confirm your password to continue.</p>
                     </x-slot>
                     <button class="p-1 text-yellow-300 font-bold bg-red-900 rounded" wire:loding.attr="disabled" class="ml-4">
-                        {{ __('Send Invitation') }}
+                        {{ !($editUser) ? __('Send Invitation') : __('Update') }}
                     </button>
                 </x-jet-confirms-password>
             </div>

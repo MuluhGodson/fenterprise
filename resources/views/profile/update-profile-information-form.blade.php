@@ -65,6 +65,35 @@
             <x-jet-input id="email" type="email" class="mt-1 block w-full" wire:model.defer="state.email" />
             <x-jet-input-error for="email" class="mt-2" />
         </div>
+
+        <!-- Tel -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="tel" value="{{ __('Telephone') }}" />
+            <x-jet-input id="tel" type="text" class="mt-1 block w-full" wire:model.defer="state.tel" />
+            <x-jet-input-error for="tel" class="mt-2" />
+        </div>
+
+        <!-- dob -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="dob" value="{{ __('Date of Birth') }}" />
+            <x-jet-input id="dob" type="date" class="mt-1 block w-full" wire:model.defer="state.dob" />
+            <x-jet-input-error for="dob" class="mt-2" />
+        </div>
+
+        <!-- pob -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="pob" value="{{ __('Place of Birth') }}" />
+            <x-jet-input id="pob" type="text" class="mt-1 block w-full" wire:model.defer="state.division_of_origin" />
+            <x-jet-input-error for="pob" class="mt-2" />
+        </div>
+
+        <!-- address -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="address" value="{{ __('Address') }}" />
+            <x-jet-input id="address" type="text" class="mt-1 block w-full" wire:model.defer="state.address" />
+            <x-jet-input-error for="address" class="mt-2" />
+        </div>
+
     </x-slot>
 
     <x-slot name="actions">

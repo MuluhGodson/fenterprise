@@ -37,7 +37,7 @@
         <x-jet-dialog-modal wire:model="Open">
 
             <x-slot name="title">
-                Create Branch
+                {{ !($editMode) ? 'Create Branch' : 'Update Branch' }}
             </x-slot>
             
             <x-slot name="content">
@@ -53,7 +53,11 @@
                     <x-jet-label for="code" value="Branch Code" />
                     <x-jet-input name="name" wire:model="code" disabled class="rounded w-full bg-gray-200" type="text" />
                 </div>
-
+                
+                <div class="my-4">
+                    <x-jet-label for="phone" value="Branch Phone Number" />
+                    <x-jet-input name="phone" wire:model="phone" class="rounded w-full" type="text" />
+                </div>
 
                 @if($users)
                 <div class="my-4">
@@ -70,8 +74,8 @@
                     </div>
                 @endif
 
-                <div class="my-4">
-                    <livewire:admin.utils.location-component :lt="null" />
+                <div class="my-4"> 
+                        @livewire('admin.utils.location-component', ['lt' => !($editMode) ? null : $subdivision])
                 </div>
 
                 <div class="my-4">
@@ -101,14 +105,14 @@
                     @if($this->image)
                         <div class="my-1">
                             Photo Preview:                       
-                            <img src="{{!$editMode ? $this->image->temporaryUrl(): Storage::url($warehouse->image)}}" alt="">
+                            <img src="{{ !($editMode) ? $this->image->temporaryUrl() : Storage::url($warehouse->image) }}" alt="">
                         </div>
                     @endif
                 </div>
             </x-slot>
 
             <x-slot name="footer">
-                <button wire:click="store()" class="p-2 cursor-pointer hover:bg-yellow-700 bg-red-900 text-white rounded">Create Branch</button>
+                <button {{ !($editMode) ? 'wire:click="store()"' : 'wire:click="update()"' }} class="p-2 cursor-pointer hover:bg-yellow-700 bg-red-900 text-white rounded">{{ !($editMode) ? 'Create Branch' : 'Update Branch' }}</button>
             </x-slot>
 
         </x-jet-dialog-modal>

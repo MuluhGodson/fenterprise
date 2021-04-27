@@ -17,6 +17,7 @@ class LocationComponent extends Component
 
     public function mount($lt)
     {
+        
         if($lt){
             $this->subdivision = $lt;
             $sd = SubDivision::find($lt);

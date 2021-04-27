@@ -5,7 +5,7 @@
     <hr class="my-4">
 
     <div class="my-5 py-5">
-        <table>
+       {{-- <table>
             <thead>
                 <tr>
                     <th></th>
@@ -66,18 +66,19 @@
                     @endforeach
                 </tbody>
             </tfoot>
-        </table>
+        </table>--}}
+        <livewire:admin.utils.stafflist />
     </div>
 
     {{-- Create User --}}
     @if($createUser)
         <x-jet-dialog-modal wire:model="createUser">
             <x-slot name="title">
-                Invite Employee
+                {{ !($editUser) ? 'Invite Employee' : 'Edit Employee Details'}}
             </x-slot>
 
             <x-slot name="content">
-                @include('auth.register', compact('roles'))
+                @include('auth.register', compact('roles', 'editUser', 'uid'))
             </x-slot>
             
             <x-slot name="footer">
