@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class CategoriesController extends Controller
 {
@@ -53,7 +55,7 @@ class CategoriesController extends Controller
         $category->image = $imageLocation;
         $category->save();
         
-        return redirect()->route('category.index');
+        return redirect()->route('category.index')->with('toast_success', 'Category Created Successfully!');
     }
 
     /**
@@ -108,7 +110,7 @@ class CategoriesController extends Controller
         $category->image = $imageLocation;
         $category->description = $request->input('description');
         $category->save();
-        return redirect()->route('category.index');
+        return redirect()->route('category.index')->with('toast_success', 'Category Updated Successfully!');;
     }
 
     /**

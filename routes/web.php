@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\WarehousesController;
 use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\Admin\ProductsController;
+use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\LocationController;
 use Spatie\WelcomeNotification\WelcomesNewUsers;
@@ -28,6 +30,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('/', [PagesController::class, 'dashboard'])->name('dashboard');
 
     Route::resource('category', CategoriesController::class);
+
+    Route::resource('product', ProductsController::class);
+
+    Route::resource('inventory', InventoryController::class);
 
     //SuperAdmin
     Route::resource('warehouse', WarehousesController::class);

@@ -22,13 +22,13 @@ class CreateWarehousesTable extends Migration
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
             $table->string('phone')->nullable();
-            $table->unsignedBigInteger('manager_id')->nullable();
+            //$table->unsignedBigInteger('manager_id')->nullable();
             $table->unsignedBigInteger('subdivision_id');
-            $table->unsignedBigInteger('user_id');
+            //$table->unsignedBigInteger('user_id');
 
             $table->foreign('subdivision_id')->references('id')->on('sub_divisions');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('manager_id')->references('id')->on('users');
+            //$table->foreign('user_id')->references('id')->on('users');
+            //$table->foreign('manager_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

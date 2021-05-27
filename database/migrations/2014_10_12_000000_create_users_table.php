@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('division_of_origin')->nullable();
             $table->string('cni')->nullable();
             $table->string('address')->nullable();
-            //$table->unsignedBigInteger('branch_id')->nullable();
+            $table->unsignedBigInteger('warehouse_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->string('created_by')->nullable();
@@ -31,7 +31,7 @@ class CreateUsersTable extends Migration
             $table->text('profile_photo_path')->nullable();
             $table->timestamps();
 
-            //$table->foreign('branch_id')->references('id')->on('warehouses');
+            $table->foreign('warehouse_id')->references('id')->on('warehouses');
             $table->foreign('division_of_origin')->references('id')->on('divisions');
         });
     }

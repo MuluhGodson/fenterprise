@@ -21,6 +21,8 @@
                         @include('layouts.parts.sidebar')
                     </div>
                     <div class="w-full mt-1 pt-1 bg-yellow-100 md:mt-1 md:pb-1 col-span-5">
+                    @include('sweetalert::alert')
+
                         <!-- Page Content -->
                         <main>
                             {{ $slot }}

@@ -18,7 +18,7 @@
                     exclude="created_at, updated_at" 
                     searchable="name, division.name, division.region.name"
                 />--}}
-                <div style="height: 500px;">
+                <div class="h-screen">
                     {!! Mapper::render() !!}
                 </div>
                 

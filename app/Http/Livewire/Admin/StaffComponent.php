@@ -18,16 +18,23 @@ use App\Models\Country;
 use App\Models\Region;
 use App\Models\Division;
 use App\Models\SubDivision;
+use App\Models\Warehouse;
 
 class StaffComponent extends Component implements DeletesUsers
 {
     use ConfirmsPasswords;
 
-    public $users, $roles, $name, $email, $role, $dob, $cni, $address, $created_by, $tel, $user_id, $uid, $country, $region, $division, $subdivision;
+    public $users, $roles, $name, $warehouses, $warehouse, $email, $role, $dob, $cni, $address, $created_by, $tel, $user_id, $uid, $country, $region, $division, $subdivision;
     public $createUser = false;
     public $editUser = false;
     public $deleteUser = false;
     protected $listeners = ['editStaff', 'countrySelected', 'regionSelected', 'divisionSelected', 'subdivisionSelected'];
+
+
+    public function mount()
+    {
+        $this->warehouses = Warehouse::all();
+    }
 
     public function render()
     {
@@ -73,6 +80,8 @@ class StaffComponent extends Component implements DeletesUsers
             'tel' => ['required'],
             'cni' => ['sometimes'],
             'address' => ['sometimes'],
+            'dob' => ['sometimes'],
+            'warehouse' => ['required']
         ]);
 
         $user = new User;
@@ -82,6 +91,7 @@ class StaffComponent extends Component implements DeletesUsers
         $user->dob = $data['dob'];
         $user->cni = $data['cni'];
         $user->address = $data['address'];
+        $user->warehouse_id = $data['warehouse'];
         $user->created_by = $this->created_by;
         $user->save();
 
@@ -105,6 +115,7 @@ class StaffComponent extends Component implements DeletesUsers
         $this->name = $u->name;
         $this->email = $u->email;
         $this->tel = $u->tel;
+        $this->warehouse = Warehouse::find($u->warehouse_id);
         $this->roles = Role::all();
         $ro = $u->getRoleNames();
         foreach ($ro as $r) {
@@ -124,6 +135,7 @@ class StaffComponent extends Component implements DeletesUsers
             'tel' => ['required'],
             'cni' => ['sometimes'],
             'address' => ['sometimes'],
+            'warehouse' => ['required']
         ]);
 
         $u->name = $data['name'];
@@ -131,6 +143,7 @@ class StaffComponent extends Component implements DeletesUsers
         $u->tel = $data['tel'];
         $u->dob = $data['dob'];
         $u->cni = $data['cni'];
+        $user->warehouse_id = $data['warehouse'];
         $u->address = $data['address'];
         $u->save();
 

@@ -8,7 +8,7 @@
 
     <div class="py-12">
         <div class="mx-auto sm:px-6 lg:px-8">
-            <div class="px-10 py-5 bg-white overflow-hidden shadow-xl sm:rounded-lg">
+            <div class="px-10 py-5 overflow-hidden shadow-xl sm:rounded-lg">
 
                 <div>
                     <a href="{{ route('category.create') }}" class="p-1 text-yellow-300 font-bold bg-red-900 rounded">Add Category</a>
@@ -18,7 +18,7 @@
                 <div class="my-5 py-5 grid md:grid-cols-4 grid-cols-1 place-content-center gap-5">
                     @forelse ($categories as $category)
                         <div class="col shadow-lg rounded bg-yellow-400">
-                            <img src="{{Storage::url($category->image)}}" class="w-full" alt="{{$category->name}}">
+                            <img src="{{Storage::url($category->image)}}" class="object-cover h-48 w-full" alt="{{$category->name}}">
                             <div class="p-3">
                                 <h1 class="text-center text-red-900 font-semibold">
                                     {{ $category->name }}

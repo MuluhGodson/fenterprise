@@ -28,4 +28,9 @@ class Warehouse extends Model
     {
         return $this->hasMany(User::class, 'branch_id');
     }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
 }

@@ -46,11 +46,21 @@
 
 
             <div class="mt-4">
-                <x-jet-label for="role" value={{_('Role')}} />
+                <x-jet-label for="role" value="{{__('Role')}}" />
                 <select wire:model="role" name="role" id="role" class="block mt-1 w-full py-2 rounded">
                     <option value="">Select a Role</option>
                     @foreach($roles as $r)
                         <option value="{{$r->name}}">{{$r->name}}</option>  
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="mt-4">
+                <x-jet-label for="warhouse" value="{{__('Branch')}}" />
+                <select wire:model="warehouse" name="warehouse" id="branch" class="block mt-1 w-full py-2 rounded">
+                    <option value="">Select a Branch</option>
+                    @foreach($warehouses as $w)
+                        <option value="{{$w->id}}">{{$w->name}}</option>  
                     @endforeach
                 </select>
             </div>
