@@ -65,7 +65,7 @@ class WarehouseComponent extends Component
     {
         $data = $this->validate([
             'name' => 'required',
-            'image' => 'required',
+            'image' => 'required|image',
             'subdivision' => 'required',
             'code' => 'required',
             'latitude' => 'required',
@@ -74,7 +74,7 @@ class WarehouseComponent extends Component
         ]);
 
         $imageExtension = $data['image']->getClientOriginalExtension();
-        $imageName = 'warehouse_image_'.$data['name'].'_'.time().'.'.$imageExtension;
+        $imageName = '_'.time().'.'.$imageExtension;
         $imageLocation = $data['image']->storePubliclyAs('Warehouses/Images', $imageName, ['disk' => 'public']);
         
         $warehouse = new Warehouse();
@@ -100,14 +100,14 @@ class WarehouseComponent extends Component
         $this->warehouse = Warehouse::find($id);
         $this->name = $this->warehouse->name;
         $this->code = $this->warehouse->branch_code;
-        $this->image = $this->warehouse->image;
+        //$this->image = $this->warehouse->image;
         $this->subdivision = $this->warehouse->subdivision_id;
         //$this->manager = $this->warehouse->manager->name;
         $this->latitude = $this->warehouse->latitude;
         $this->longitude = $this->warehouse->longitude;
         $this->phone = $this->warehouse->phone;
         $this->editMode = true;
-        $this->Open = true;
+       // $this->Open = true;
     }
 
     public function update()
@@ -126,7 +126,7 @@ class WarehouseComponent extends Component
 
       if(is_file($this->image)) {
             $imageExtension = $data['image']->getClientOriginalExtension();
-            $imageName = 'warehouse_image_'.$data['name'].'_'.time().'.'.$imageExtension;
+            $imageName = '_'.time().'.'.$imageExtension;
             $imageLocation = $data['image']->storePubliclyAs('Warehouses/Images', $imageName, ['disk' => 'public']);
         } else {
             $imageLocation = $warehouse->image;

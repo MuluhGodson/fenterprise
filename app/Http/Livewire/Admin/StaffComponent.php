@@ -133,9 +133,10 @@ class StaffComponent extends Component implements DeletesUsers
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($id)],
             'role' => ['required'],
             'tel' => ['required'],
+            'warehouse' => ['required'],
             'cni' => ['sometimes'],
             'address' => ['sometimes'],
-            'warehouse' => ['required']
+            'dob' => ['sometimes'],
         ]);
 
         $u->name = $data['name'];
@@ -143,12 +144,12 @@ class StaffComponent extends Component implements DeletesUsers
         $u->tel = $data['tel'];
         $u->dob = $data['dob'];
         $u->cni = $data['cni'];
-        $user->warehouse_id = $data['warehouse'];
+        $u->warehouse_id = $data['warehouse'];
         $u->address = $data['address'];
         $u->save();
 
         //Assign Role to User
-        $user->assignRole($data['role']);
+        $u->assignRole($data['role']);
 
         //close modal
         $this->createUser = false;

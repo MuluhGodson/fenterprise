@@ -1,5 +1,5 @@
 <div class="bg-red-900 text-gray-200 h-screen divide-y-2">
-     <a href="">
+     <a href="{{route('inventory.index')}}">
         <div class="py-5 flex content-center items-center justify-between hover:bg-yellow-400 px-3 rounded cursor-pointer">
             <p class="px-5 font-bold text-gray-200">Inventory</p>
             <span class="fa-stack">

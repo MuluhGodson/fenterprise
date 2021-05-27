@@ -26,11 +26,14 @@ class Warehouse extends Model
 
     public function users()
     {
-        return $this->hasMany(User::class, 'branch_id');
+        return $this->hasMany(User::class, 'warehouse_id');
     }
+
 
     public function products()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class, 'product_warehouse', 'warehouse_id', 'product_id')
+                        ->withPivot('quantity')
+                        ->withTimestamps();
     }
 }

@@ -63,8 +63,8 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function branch()
+    public function warehouse()
     {
-        return $this->belongsTo(Warehouse::class, 'branch_id');
+        return $this->belongsTo(Warehouse::class, 'warehouse_id');
     }
 }

@@ -52,10 +52,10 @@ class Stafflist extends LivewireDatatable
             })
                 ->label('Role'),
             
-            Column::callback(['id','branch_id'], function($id,$branch_id) {
-                if($branch_id) {
-                   $user = User::with('branch')->find($id);
-                    return $user->branch->name; 
+            Column::callback(['id','warehouse_id'], function($id,$warehouse_id) {
+                if($warehouse_id) {
+                   $user = User::with('warehouse')->find($id);
+                    return $user->warehouse->name; 
                 } else {
                     return '<span class="text-red-400 text-sm font-bold">[not assigned]</span>';
                 }

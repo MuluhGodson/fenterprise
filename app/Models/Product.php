@@ -10,13 +10,15 @@ class Product extends Model
     use HasFactory;
 
 
-    public function warehouses()
-    {
-        return $this->belongsToMany(Warehouse::class);
-    }
-
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    public function warehouses()
+    {
+        return $this->belongsToMany(Warehouse::class, 'product_warehouse', 'product_id', 'warehouse_id')
+                                    ->withPivot('quantity')
+                                    ->withTimestamps();
     }
 }
